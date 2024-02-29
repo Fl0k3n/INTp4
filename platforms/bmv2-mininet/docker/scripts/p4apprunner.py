@@ -16,11 +16,11 @@
 from __future__ import print_function
 
 import argparse
-from collections import OrderedDict
 import json
 import os
 import sys
 import tarfile
+from collections import OrderedDict
 
 parser = argparse.ArgumentParser(description='p4apprunner')
 parser.add_argument('--build-dir', help='Directory to build in.',
@@ -270,7 +270,13 @@ def run_custom(manifest):
          log_error('No mininet program file provided.')
          sys.exit(1)
     program = manifest.target_config['program']
-    rv = run_command('%s python2 %s %s' % (python_path, program, ' '.join(script_args)))
+    # rv = run_command('%s python2 %s %s' % (python_path, program, ' '.join(script_args)))
+    rv = 1
+    print('-----------------------------------------------------------------------------')
+    print('KNTP-------------------------------------------------------------------------')
+    print('-----------------------------------------------------------------------------')
+    print(program)
+    print(script_args)
 
     if rv != 0:
         sys.exit(1)
@@ -298,6 +304,10 @@ def main():
     backend = manifest.target
     if 'use' in manifest.target_config:
         backend = manifest.target_config['use']
+
+    print('------------------------------------------------')
+    print('backend')
+    print(backend)
 
     if args.build_only or backend == 'compile-bmv2':
         build_only(manifest)
