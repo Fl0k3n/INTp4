@@ -437,13 +437,11 @@ def start_udp_server(args):
     # Listen for incoming datagrams
     while(True):
         message, address = sock.recvfrom(bufferSize)
-        print('got msg')
         logger.info("Received INT report (%d bytes) from: %s" % (len(message), str(address)))
         logger.debug(binascii.hexlify(message))
         try:
             report = unpack_int_report(message)
             if report:
-                print(report)
                 collector.add_report(report)
         except Exception as e:
             print(e)
